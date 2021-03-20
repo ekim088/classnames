@@ -56,6 +56,7 @@
 		"lint": "eslint . --ext .js,.ts --fix",
 		"prepare": "husky install",
 		"test": "jest --watchAll",
+		"test:ci": "jest",
 		"test:coverage": "jest --collectCoverage",
 		"test:pre-commit": "jest --findRelatedTests"
 	},
