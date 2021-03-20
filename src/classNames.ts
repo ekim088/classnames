@@ -1,7 +1,5 @@
 export type ClassDictionary = Record<string, unknown>;
 
-export type ClassListArray = (string | number | true)[];
-
 export type ClassValue =
 	| string
 	| number
@@ -12,37 +10,49 @@ export type ClassValue =
 	| ClassValue[];
 
 /**
+ * Parses a class value from a single mixed-type argument.
+ *
+ * @param {*} arg The argument to parse.
+ * @returns {string} The value to append to the class attribute value.
+ * @ignore
+ */
+const parseClassFromArg = (arg: ClassValue): string => {
+	let classToAppend = '';
+
+	if (arg) {
+		if (Array.isArray(arg)) {
+			if (arg.length) {
+				classToAppend = classNames(...arg);
+			}
+		} else if (typeof arg === 'object') {
+			// using `for...in` over `Object.keys()` and string append over
+			// template literals for improved performance
+			// eslint-disable-next-line no-restricted-syntax
+			for (const key in arg) {
+				if (
+					Object.prototype.hasOwnProperty.call(arg, key) &&
+					arg[key]
+				) {
+					classToAppend += (classToAppend ? ' ' : '') + key;
+				}
+			}
+		} else {
+			classToAppend += arg;
+		}
+	}
+
+	return classToAppend;
+};
+
+/**
  * Reduces a list of arguments into a single class attribute value.
  *
- * @param {...*} classNameArgs A list of arguments to reduce.
+ * @param {...*} classNameArgs A list of mixed-type arguments to reduce.
  * @returns {string} A class attribute value.
  */
 export default function classNames(...classNameArgs: ClassValue[]): string {
-	const classList: ClassListArray = [];
-
-	/**
-	 * Parses and pushes an argument to the class list.
-	 *
-	 * @param {*} arg The argument to parse.
-	 * @ignore
-	 */
-	const parseArg = (arg: ClassValue): void => {
-		if (!arg) return;
-
-		if (Array.isArray(arg)) {
-			if (arg.length > 0) classList.push(classNames(...arg));
-		} else if (typeof arg === 'object') {
-			Object.keys(arg).forEach(
-				key => arg[key] && classList.push(key.trim())
-			);
-		} else if (typeof arg === 'string') {
-			const trimmed = arg.trim();
-			if (trimmed) classList.push(trimmed);
-		} else {
-			classList.push(arg);
-		}
-	};
-
-	classNameArgs.forEach(parseArg);
-	return classList.join(' ');
+	return classNameArgs.reduce<string>((classAttr, arg) => {
+		const parsed = parseClassFromArg(arg);
+		return classAttr + (parsed ? (classAttr ? ' ' : '') + parsed : '');
+	}, '');
 }

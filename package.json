@@ -1,7 +1,7 @@
 {
 	"name": "@ekim088/classnames",
 	"description": "Reduces mixed-type arguments into a single HTML class attribute.",
-	"version": "1.0.0-alpha.2",
+	"version": "1.0.0",
 	"author": "ekim088 <edward@cyberbird.co>",
 	"bugs": {
 		"url": "https://github.com/ekim088/classnames/issues"
@@ -9,6 +9,7 @@
 	"devDependencies": {
 		"@commitlint/cli": "^12.0.1",
 		"@commitlint/config-conventional": "^12.0.1",
+		"@types/classnames": "^2.2.11",
 		"@types/jest": "^26.0.21",
 		"@typescript-eslint/eslint-plugin": "^4.18.0",
 		"@typescript-eslint/parser": "^4.18.0",
