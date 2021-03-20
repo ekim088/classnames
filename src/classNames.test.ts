@@ -17,8 +17,14 @@ describe('classNames', () => {
 	});
 
 	it('should recursively flatten arrays', () => {
-		const arr = ['b', { c: true, d: false }];
-		expect(classNames('a', arr)).toBe('a b c');
+		expect(classNames('a', ['b', { c: true, d: false }])).toBe('a b c');
+		expect(
+			classNames('a', [
+				'b',
+				{ c: true, d: false },
+				['e', { f: true, g: false }, ['h']]
+			])
+		).toBe('a b c e f h');
 	});
 
 	it('should support computed keys', () => {
