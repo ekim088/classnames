@@ -57,10 +57,9 @@
 		"build": "rm -rf ./lib && tsc",
 		"changelog": "auto-changelog -p && git add CHANGELOG.md",
 		"lint": "eslint . --ext .js,.ts --fix",
-		"test": "jest",
+		"test": "jest --watchAll",
 		"test:coverage": "jest --collectCoverage",
-		"test:pre-commit": "jest --findRelatedTests",
-		"test:watch": "jest --watchAll"
+		"test:pre-commit": "jest --findRelatedTests"
 	},
 	"types": "./lib/index.d.ts"
 }

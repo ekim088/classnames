@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"declaration": true,
+		"downlevelIteration": true,
 		"lib": ["es2015", "dom"],
 		"module": "commonjs",
 		"outDir": "./lib",
@@ -10,5 +11,5 @@
 		"target": "es5"
 	},
 	"include": ["src/**/*"],
-	"exclude": ["node_modules", "__tests__", "**/*.test.ts"]
+	"exclude": ["node_modules", "**/*.test.ts"]
 }
