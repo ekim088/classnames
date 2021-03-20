@@ -12,26 +12,6 @@ export type ClassValue =
 	| ClassValue[];
 
 /**
- * Parses and pushes an argument to the class list.
- *
- * @param arg The argument to parse.
- * @param classList The class list array containing the final set of classes.
- */
-export function parseArg(arg: ClassValue, classList: ClassListArray): void {
-	if (!arg) return;
-
-	if (Array.isArray(arg)) {
-		arg.forEach(arg => parseArg(arg, classList));
-	} else if (typeof arg === 'object') {
-		Object.keys(arg).forEach(key => arg[key] && classList.push(key.trim()));
-	} else if (typeof arg === 'string') {
-		if (arg.trim()) classList.push(arg.trim());
-	} else {
-		classList.push(arg);
-	}
-}
-
-/**
  * Reduces a list of arguments into a single class attribute value.
  *
  * @param classNameArgs A list of arguments to reduce.
@@ -39,6 +19,29 @@ export function parseArg(arg: ClassValue, classList: ClassListArray): void {
  */
 export default function classNames(...classNameArgs: ClassValue[]): string {
 	const classList: ClassListArray = [];
-	classNameArgs.forEach(arg => parseArg(arg, classList));
+
+	/**
+	 * Parses and pushes an argument to the class list.
+	 *
+	 * @param arg The argument to parse.
+	 */
+	const parseArg = (arg: ClassValue): void => {
+		if (!arg) return;
+
+		if (Array.isArray(arg)) {
+			arg.forEach(parseArg);
+		} else if (typeof arg === 'object') {
+			Object.keys(arg).forEach(
+				key => arg[key] && classList.push(key.trim())
+			);
+		} else if (typeof arg === 'string') {
+			const trimmed = arg.trim();
+			if (trimmed) classList.push(trimmed);
+		} else {
+			classList.push(arg);
+		}
+	};
+
+	classNameArgs.forEach(parseArg);
 	return classList.join(' ');
 }

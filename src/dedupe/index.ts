@@ -1,9 +1,42 @@
-import classNames, { ClassListArray, parseArg } from '../classNames';
+import { ClassListArray, ClassValue } from '../classNames';
 
-const classNamesDedupe: typeof classNames = (...classNameArgs) => {
+/**
+ * Reduces a list of arguments into a single class attribute value. Filters out
+ * duplicate class names.
+ *
+ * @param classNameArgs A list of arguments to reduce.
+ * @returns A class attribute value without duplicates.
+ */
+export default function classNamesDedupe(
+	...classNameArgs: ClassValue[]
+): string {
 	const classList: ClassListArray = [];
-	classNameArgs.forEach(arg => parseArg(arg, classList));
-	return Array.from(new Set(classList)).join(' ');
-};
+	let dictionary: Map<string, unknown> = new Map();
 
-export default classNamesDedupe;
+	/**
+	 * Parses and pushes an argument to the class dictionary.
+	 *
+	 * @param arg The argument to parse.
+	 */
+	const parseArg = (arg: ClassValue): void => {
+		if (!arg) return;
+
+		if (Array.isArray(arg)) {
+			arg.forEach(parseArg);
+		} else if (typeof arg === 'object') {
+			dictionary = new Map([
+				...dictionary,
+				...new Map(Object.entries(arg))
+			]);
+		} else {
+			dictionary.set(`${arg}`, true);
+		}
+	};
+
+	classNameArgs.forEach(parseArg);
+	dictionary.forEach((value, key) => {
+		const trimmedKey = key.trim();
+		if (value && trimmedKey) classList.push(trimmedKey);
+	});
+	return classList.join(' ');
+}
