@@ -1,7 +1,5 @@
 import { ClassValue } from '../classNames';
 
-export type ClassListArray = (string | number | true)[];
-
 /**
  * Reduces a list of arguments into a single class attribute value. Filters out
  * duplicate class names.
@@ -13,34 +11,72 @@ export type ClassListArray = (string | number | true)[];
 export default function classNamesDedupe(
 	...classNameArgs: ClassValue[]
 ): string {
-	const classList: ClassListArray = [];
-	let dictionary: Map<string, unknown> = new Map();
+	let classAttr = '';
+
+	// an array of classes that may end up in the final attribute value;
+	// maintains the names' order of first appearance in the argument list
+	const classList: string[] = [];
+
+	// a map of class names and their latest truthy/falsey value
+	const dictionary: Record<string, unknown> = {};
 
 	/**
-	 * Parses and pushes an argument to the class dictionary.
+	 * Adds a class name to the list and updates its value in the dictionary.
+	 *
+	 * @param {string | number | boolean} className The name to update.
+	 * @param {*} value The truthy/falsey value of the class name.
+	 * @ignore
+	 */
+	const updateClassNames = (
+		className: string | number | true,
+		value: unknown
+	) => {
+		const keyStr = '' + className;
+		dictionary[keyStr] = value;
+
+		if (classList.indexOf(keyStr) === -1) {
+			classList.push(keyStr);
+		}
+	};
+
+	/**
+	 * Parses and pushes an argument to the class list.
 	 *
 	 * @param {*} arg The argument to parse.
 	 * @ignore
 	 */
 	const parseArg = (arg: ClassValue): void => {
-		if (!arg) return;
-
-		if (Array.isArray(arg)) {
-			if (arg.length > 0) dictionary.set(classNamesDedupe(...arg), true);
-		} else if (typeof arg === 'object') {
-			dictionary = new Map([
-				...dictionary,
-				...new Map(Object.entries(arg))
-			]);
-		} else {
-			dictionary.set(`${arg}`, true);
+		if (arg) {
+			if (Array.isArray(arg)) {
+				if (arg.length) {
+					arg.forEach(parseArg);
+				}
+			} else if (typeof arg === 'object') {
+				// eslint-disable-next-line no-restricted-syntax
+				for (const key in arg) {
+					if (Object.prototype.hasOwnProperty.call(arg, key)) {
+						updateClassNames(key, arg[key]);
+					}
+				}
+			} else {
+				updateClassNames(arg, true);
+			}
 		}
 	};
 
-	classNameArgs.forEach(parseArg);
-	dictionary.forEach((value, key) => {
-		const trimmedKey = key.trim();
-		if (value && trimmedKey) classList.push(trimmedKey);
-	});
-	return classList.join(' ');
+	// parse each argument for truthy/falsey values to build the potential
+	// class list and dictionary
+	for (let i = 0; i < classNameArgs.length; i++) {
+		parseArg(classNameArgs[i]);
+	}
+
+	// reduce the class list to the attribute value using only truthy keys
+	// from the dictionary
+	for (let i = 0; i < classList.length; i++) {
+		if (dictionary[classList[i]]) {
+			classAttr += `${classAttr ? ' ' : ''}${classList[i]}`;
+		}
+	}
+
+	return classAttr;
 }

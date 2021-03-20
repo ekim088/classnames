@@ -14,6 +14,19 @@ describe('classNames', () => {
 		expect(
 			classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, '')
 		).toBe('bar 1');
+		expect(
+			classNames(
+				'foo',
+				null,
+				'',
+				{
+					'a-b': 'asdf',
+					'c-d--e': 0,
+					'f__g-h': 1
+				},
+				'bar'
+			)
+		).toBe('foo a-b f__g-h bar');
 	});
 
 	it('should recursively flatten arrays', () => {

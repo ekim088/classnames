@@ -52,7 +52,8 @@ module.exports = {
 		'jest/prefer-hooks-on-top': 'error',
 		'jest/require-top-level-describe': 'error',
 		'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
-		'no-use-before-define': 'off'
+		'no-use-before-define': 'off',
+		'prefer-template': 'off'
 	},
 	settings: {
 		'import/parsers': {

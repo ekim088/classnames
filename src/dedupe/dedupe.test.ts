@@ -1,3 +1,4 @@
+import classNamesActual from 'classnames/dedupe';
 import classNames from './index';
 
 describe('classNames/dedupe', () => {
@@ -26,6 +27,19 @@ describe('classNames/dedupe', () => {
 					''
 				)
 			).toBe('bar 1');
+			expect(
+				classNames(
+					'foo',
+					null,
+					'',
+					{
+						'a-b': 'asdf',
+						'c-d--e': 0,
+						'f__g-h': 1
+					},
+					'bar'
+				)
+			).toBe('foo a-b f__g-h bar');
 		});
 
 		it('should recursively flatten arrays', () => {
@@ -54,6 +68,22 @@ describe('classNames/dedupe', () => {
 
 		it('should honor the most recent value of a duplicate class name', () => {
 			expect(classNames('foo', { foo: false, bar: true })).toBe('bar');
+		});
+
+		it('should maintain the original order of the class names based on first appearance', () => {
+			expect(
+				classNamesActual(
+					'foo',
+					'bar',
+					'foo',
+					{ foo: false },
+					'bar',
+					'foo'
+				)
+			).toBe('foo bar');
+			expect(
+				classNames('foo', 'bar', 'foo', { foo: false }, 'bar', 'foo')
+			).toBe('foo bar');
 		});
 	});
 });
