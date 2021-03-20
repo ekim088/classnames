@@ -1,4 +1,4 @@
-import { ClassValue } from '../classNames';
+import { ClassValue } from '.';
 
 /**
  * Reduces a list of arguments into a single class attribute value. Filters out
