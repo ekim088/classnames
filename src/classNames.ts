@@ -29,7 +29,7 @@ export default function classNames(...classNameArgs: ClassValue[]): string {
 		if (!arg) return;
 
 		if (Array.isArray(arg)) {
-			arg.forEach(parseArg);
+			if (arg.length > 0) classList.push(classNames(...arg));
 		} else if (typeof arg === 'object') {
 			Object.keys(arg).forEach(
 				key => arg[key] && classList.push(key.trim())

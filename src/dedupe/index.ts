@@ -22,7 +22,7 @@ export default function classNamesDedupe(
 		if (!arg) return;
 
 		if (Array.isArray(arg)) {
-			arg.forEach(parseArg);
+			if (arg.length > 0) dictionary.set(classNamesDedupe(...arg), true);
 		} else if (typeof arg === 'object') {
 			dictionary = new Map([
 				...dictionary,
