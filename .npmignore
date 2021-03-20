@@ -1,9 +1,11 @@
-/src/
-/coverage/
-/*.config.js
-*.code-workspace
-tsconfig*
 .editorconfig
 .eslint*
 .github
+.husky
 .prettierrc*
+*.code-workspace
+/*.config.js
+/benchmark.js
+/coverage/
+/src/
+tsconfig*
