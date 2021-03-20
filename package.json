@@ -13,6 +13,8 @@
 		"@typescript-eslint/eslint-plugin": "^4.18.0",
 		"@typescript-eslint/parser": "^4.18.0",
 		"auto-changelog": "^2.2.1",
+		"benchmark": "^2.1.4",
+		"classnames": "^2.2.6",
 		"eslint": "^7.22.0",
 		"eslint-config-airbnb-base": "^14.2.1",
 		"eslint-config-prettier": "^8.1.0",
@@ -28,12 +30,6 @@
 		"typescript": "^4.2.3"
 	},
 	"homepage": "https://github.com/ekim088/classnames#readme",
-	"husky": {
-		"hooks": {
-			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-			"pre-commit": "lint-staged && npm run build"
-		}
-	},
 	"keywords": [
 		"classnames"
 	],
@@ -54,9 +50,11 @@
 		"url": "git+https://github.com/ekim088/classnames.git"
 	},
 	"scripts": {
+		"benchmark": "npm run build && node ./benchmark",
 		"build": "rm -rf ./lib && tsc",
 		"changelog": "auto-changelog -p && git add CHANGELOG.md",
 		"lint": "eslint . --ext .js,.ts --fix",
+		"prepare": "husky install",
 		"test": "jest --watchAll",
 		"test:coverage": "jest --collectCoverage",
 		"test:pre-commit": "jest --findRelatedTests"

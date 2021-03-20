@@ -11,8 +11,7 @@ module.exports = {
 		'plugin:jest/recommended',
 		'plugin:jest/style',
 		'plugin:jsdoc/recommended',
-		'prettier',
-		'prettier/@typescript-eslint'
+		'prettier'
 	],
 	rules: {
 		'@typescript-eslint/member-ordering': [
