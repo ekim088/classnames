@@ -31,17 +31,4 @@ describe('classNames', () => {
 		const buttonType = 'primary';
 		expect(classNames({ [`btn-${buttonType}`]: true })).toBe('btn-primary');
 	});
-
-	it('should clean up whitespace within the value', () => {
-		expect(classNames('foo', ' ', ' bar ')).toBe('foo bar');
-		expect(
-			classNames({
-				foo: true,
-				' a-b ': 1,
-				bar: null,
-				1: 2,
-				' c-d ': 3
-			})
-		).toBe('1 foo a-b c-d');
-	});
 });

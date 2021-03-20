@@ -5,7 +5,7 @@
 .prettierrc*
 *.code-workspace
 /*.config.js
-/benchmark.js
+/benchmark*
 /coverage/
 /src/
 tsconfig*

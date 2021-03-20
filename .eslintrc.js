@@ -22,6 +22,10 @@ module.exports = {
 				}
 			}
 		],
+		'@typescript-eslint/no-use-before-define': [
+			'error',
+			{ classes: false, functions: false }
+		],
 		'import/extensions': [
 			'error',
 			'ignorePackages',
@@ -47,7 +51,8 @@ module.exports = {
 		'jest/no-test-return-statement': 'error',
 		'jest/prefer-hooks-on-top': 'error',
 		'jest/require-top-level-describe': 'error',
-		'no-plusplus': ['error', { allowForLoopAfterthoughts: true }]
+		'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+		'no-use-before-define': 'off'
 	},
 	settings: {
 		'import/parsers': {

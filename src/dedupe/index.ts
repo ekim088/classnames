@@ -1,4 +1,6 @@
-import { ClassListArray, ClassValue } from '../classNames';
+import { ClassValue } from '../classNames';
+
+export type ClassListArray = (string | number | true)[];
 
 /**
  * Reduces a list of arguments into a single class attribute value. Filters out
@@ -6,6 +8,7 @@ import { ClassListArray, ClassValue } from '../classNames';
  *
  * @param {...*} classNameArgs A list of arguments to reduce.
  * @returns {string} A class attribute value without duplicates.
+ * @ignore
  */
 export default function classNamesDedupe(
 	...classNameArgs: ClassValue[]
