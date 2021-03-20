@@ -4,8 +4,8 @@ import { ClassListArray, ClassValue } from '../classNames';
  * Reduces a list of arguments into a single class attribute value. Filters out
  * duplicate class names.
  *
- * @param classNameArgs A list of arguments to reduce.
- * @returns A class attribute value without duplicates.
+ * @param {...*} classNameArgs A list of arguments to reduce.
+ * @returns {string} A class attribute value without duplicates.
  */
 export default function classNamesDedupe(
 	...classNameArgs: ClassValue[]
@@ -16,7 +16,8 @@ export default function classNamesDedupe(
 	/**
 	 * Parses and pushes an argument to the class dictionary.
 	 *
-	 * @param arg The argument to parse.
+	 * @param {*} arg The argument to parse.
+	 * @ignore
 	 */
 	const parseArg = (arg: ClassValue): void => {
 		if (!arg) return;
