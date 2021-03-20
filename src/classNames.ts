@@ -51,15 +51,8 @@ const parseClassFromArg = (arg: ClassValue): string => {
  * @returns {string} A class attribute value.
  */
 export default function classNames(...classNameArgs: ClassValue[]): string {
-	let classAttr = '';
-
-	for (let i = 0; i < classNameArgs.length; i++) {
-		const parsed = parseClassFromArg(classNameArgs[i]);
-
-		if (parsed) {
-			classAttr += `${classAttr ? ' ' : ''}${parsed}`;
-		}
-	}
-
-	return classAttr;
+	return classNameArgs.reduce<string>((classAttr, arg) => {
+		const parsed = parseClassFromArg(arg);
+		return classAttr + (parsed ? (classAttr ? ' ' : '') + parsed : '');
+	}, '');
 }

@@ -11,8 +11,6 @@ import { ClassValue } from '../classNames';
 export default function classNamesDedupe(
 	...classNameArgs: ClassValue[]
 ): string {
-	let classAttr = '';
-
 	// an array of classes that may end up in the final attribute value;
 	// maintains the names' order of first appearance in the argument list
 	const classList: string[] = [];
@@ -72,11 +70,9 @@ export default function classNamesDedupe(
 
 	// reduce the class list to the attribute value using only truthy keys
 	// from the dictionary
-	for (let i = 0; i < classList.length; i++) {
-		if (dictionary[classList[i]]) {
-			classAttr += `${classAttr ? ' ' : ''}${classList[i]}`;
-		}
-	}
-
-	return classAttr;
+	return classList.reduce<string>(
+		(classAttr, name) =>
+			classAttr + (dictionary[name] ? (classAttr ? ' ' : '') + name : ''),
+		''
+	);
 }
