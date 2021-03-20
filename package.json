@@ -30,8 +30,9 @@
 		"ts-jest": "^26.5.4",
 		"typescript": "^4.2.3"
 	},
-	"directories": {
-		"lib": "./lib"
+	"exports": {
+		".": "./lib/index.js",
+		"./dedupe": "./lib/dedupe.js"
 	},
 	"homepage": "https://github.com/ekim088/classnames#readme",
 	"keywords": [
