@@ -1,0 +1,10 @@
+/src/
+__tests__/
+/coverage/
+/*.config.js
+*.code-workspace
+tsconfig*
+.editorconfig
+.eslint*
+.github
+.prettierrc

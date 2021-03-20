@@ -1,0 +1,66 @@
+{
+	"name": "@ekim088/classnames",
+	"description": "Reduces mixed-type arguments into a single HTML class attribute.",
+	"version": "0.1.0",
+	"author": "ekim088 <edward@cyberbird.co>",
+	"bugs": {
+		"url": "https://github.com/ekim088/classnames/issues"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^12.0.1",
+		"@commitlint/config-conventional": "^12.0.1",
+		"@types/jest": "^26.0.21",
+		"@typescript-eslint/eslint-plugin": "^4.18.0",
+		"@typescript-eslint/parser": "^4.18.0",
+		"auto-changelog": "^2.2.1",
+		"eslint": "^7.22.0",
+		"eslint-config-airbnb-base": "^14.2.1",
+		"eslint-config-prettier": "^8.1.0",
+		"eslint-import-resolver-typescript": "^2.4.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-jest": "^24.3.2",
+		"eslint-plugin-jsdoc": "^32.3.0",
+		"husky": "^5.1.3",
+		"jest": "^26.6.3",
+		"lint-staged": "^10.5.4",
+		"prettier": "^2.2.1",
+		"ts-jest": "^26.5.4",
+		"typescript": "^4.2.3"
+	},
+	"homepage": "https://github.com/ekim088/classnames#readme",
+	"husky": {
+		"hooks": {
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+			"pre-commit": "lint-staged && npm run build"
+		}
+	},
+	"keywords": [
+		"classnames"
+	],
+	"license": "MIT",
+	"lint-staged": {
+		"*.(j|t)s": [
+			"eslint --fix",
+			"npm run test:pre-commit",
+			"prettier --write"
+		],
+		"*.(json|md|*rc)": [
+			"prettier --write"
+		]
+	},
+	"main": "./lib/index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ekim088/classnames.git"
+	},
+	"scripts": {
+		"build": "rm -rf ./lib && tsc",
+		"changelog": "auto-changelog -p && git add CHANGELOG.md",
+		"lint": "eslint . --ext .js,.ts --fix",
+		"test": "jest",
+		"test:coverage": "jest --collectCoverage",
+		"test:pre-commit": "jest --findRelatedTests",
+		"test:watch": "jest --watchAll"
+	},
+	"types": "./lib/index.d.ts"
+}
