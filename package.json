@@ -59,6 +59,7 @@
 		"benchmark": "npm run build && node ./benchmark",
 		"build": "rm -rf ./lib && tsc",
 		"changelog": "auto-changelog -p && git add CHANGELOG.md",
+		"install:husky": "husky install",
 		"lint": "eslint . --ext .js,.ts --fix",
 		"test": "jest --watchAll",
 		"test:coverage": "jest --collectCoverage",
