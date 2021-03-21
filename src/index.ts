@@ -25,15 +25,21 @@ const parseClassFromArg = (arg: ClassValue): string => {
 				classToAppend = classNames(...arg);
 			}
 		} else if (typeof arg === 'object') {
-			// using `for...in` over `Object.keys()` and string append over
-			// template literals for improved performance
-			// eslint-disable-next-line no-restricted-syntax
-			for (const key in arg) {
-				if (
-					Object.prototype.hasOwnProperty.call(arg, key) &&
-					arg[key]
-				) {
-					classToAppend += (classToAppend ? ' ' : '') + key;
+			const objPrototype = Object.prototype;
+
+			if (objPrototype.toString !== arg.toString) {
+				classToAppend = arg.toString();
+			} else {
+				// using `for...in` over `Object.keys()` and string append over
+				// template literals for improved performance
+				// eslint-disable-next-line no-restricted-syntax
+				for (const key in arg) {
+					if (
+						objPrototype.hasOwnProperty.call(arg, key) &&
+						arg[key]
+					) {
+						classToAppend += (classToAppend ? ' ' : '') + key;
+					}
 				}
 			}
 		} else {

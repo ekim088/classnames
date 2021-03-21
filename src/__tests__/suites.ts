@@ -57,6 +57,38 @@ export const runBaseSuite = (fxn: Function, name = 'base tests'): void => {
 };
 
 /**
+ * Executes all default tests for `className` that are specific to the
+ * `ekim088/classnames` package.
+ *
+ * @param {Function} fxn The function to test.
+ * @param {string} [name="custom base tests"] The name of the test block.
+ */
+export const runCustomBaseSuite = (
+	fxn: Function,
+	name = 'custom base tests'
+): void => {
+	describe(`${name}`, () => {
+		it('should support objects with a custom toString method', () => {
+			class MockObj {
+				val: string;
+
+				constructor(val: string) {
+					this.val = val;
+				}
+
+				toString() {
+					return `mockToString ${this.val}`;
+				}
+			}
+
+			expect(fxn('foo', new MockObj('baz'), { bar: true })).toBe(
+				'foo mockToString baz bar'
+			);
+		});
+	});
+};
+
+/**
  * Executes all dedupe tests for `className`.
  *
  * @param {Function} fxn The function to test.
