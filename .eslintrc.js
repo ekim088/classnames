@@ -14,14 +14,7 @@ module.exports = {
 		'prettier'
 	],
 	rules: {
-		'@typescript-eslint/member-ordering': [
-			'error',
-			{
-				default: {
-					order: 'alphabetically'
-				}
-			}
-		],
+		'@typescript-eslint/member-ordering': ['warn'],
 		'@typescript-eslint/no-use-before-define': [
 			'error',
 			{ classes: false, functions: false }

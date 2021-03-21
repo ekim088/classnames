@@ -50,10 +50,16 @@ export default function classNamesDedupe(
 					arg.forEach(parseArg);
 				}
 			} else if (typeof arg === 'object') {
-				// eslint-disable-next-line no-restricted-syntax
-				for (const key in arg) {
-					if (Object.prototype.hasOwnProperty.call(arg, key)) {
-						updateClassNames(key, arg[key]);
+				const objPrototype = Object.prototype;
+
+				if (objPrototype.toString !== arg.toString) {
+					updateClassNames(arg.toString(), true);
+				} else {
+					// eslint-disable-next-line no-restricted-syntax
+					for (const key in arg) {
+						if (objPrototype.hasOwnProperty.call(arg, key)) {
+							updateClassNames(key, arg[key]);
+						}
 					}
 				}
 			} else {
