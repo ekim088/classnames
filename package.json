@@ -1,7 +1,7 @@
 {
 	"name": "@ekim088/classnames",
 	"description": "Reduces mixed-type arguments into a single HTML class attribute.",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"author": "ekim088 <edward@cyberbird.co>",
 	"bugs": {
 		"url": "https://github.com/ekim088/classnames/issues"
