@@ -32,7 +32,8 @@
 	},
 	"exports": {
 		".": "./lib/index.js",
-		"./dedupe": "./lib/dedupe.js"
+		"./dedupe": "./lib/dedupe.js",
+		"./package.json": "./package.json"
 	},
 	"homepage": "https://github.com/ekim088/classnames#readme",
 	"keywords": [
