@@ -1,12 +1,15 @@
-/* eslint @typescript-eslint/ban-types: "off", import/prefer-default-export: "off", jest/no-export: "off" */
+/* eslint import/prefer-default-export: "off", jest/no-export: "off" */
+import classNamesActual from 'classnames';
+import classNames from '../index';
+
+type TestFunction = typeof classNames | typeof classNamesActual;
 
 /**
  * Executes all default tests for `className`.
- *
  * @param {Function} fxn The function to test.
- * @param {string} [name="base tests"] The name of the test block.
+ * @param {string} [name] The name of the test block.
  */
-export const runBaseSuite = (fxn: Function, name = 'base tests'): void => {
+export const runBaseSuite = (fxn: TestFunction, name = 'base tests'): void => {
 	describe(`${name}`, () => {
 		it('should handle mixed arguments', () => {
 			expect(fxn('foo', 'bar')).toBe('foo bar');
@@ -59,12 +62,11 @@ export const runBaseSuite = (fxn: Function, name = 'base tests'): void => {
 /**
  * Executes all default tests for `className` that are specific to the
  * `ekim088/classnames` package.
- *
  * @param {Function} fxn The function to test.
- * @param {string} [name="custom base tests"] The name of the test block.
+ * @param {string} [name] The name of the test block.
  */
 export const runCustomBaseSuite = (
-	fxn: Function,
+	fxn: TestFunction,
 	name = 'custom base tests'
 ): void => {
 	describe(`${name}`, () => {
@@ -85,16 +87,29 @@ export const runCustomBaseSuite = (
 				'foo mockToString baz bar'
 			);
 		});
+
+		it('should only call the toString property if it is a function', () => {
+			expect(
+				fxn(
+					'foo',
+					{ toString: null },
+					{ toString: true },
+					{ bar: true }
+				)
+			).toBe('foo toString bar');
+		});
 	});
 };
 
 /**
  * Executes all dedupe tests for `className`.
- *
  * @param {Function} fxn The function to test.
- * @param {string} [name="dedupe tests"] The name of the test block.
+ * @param {string} [name] The name of the test block.
  */
-export const runDedupeSuite = (fxn: Function, name = 'dedupe tests'): void => {
+export const runDedupeSuite = (
+	fxn: TestFunction,
+	name = 'dedupe tests'
+): void => {
 	describe(`${name}`, () => {
 		it('should filter duplicate classes', () => {
 			expect(fxn('foo', 'foo', 'bar')).toBe('foo bar');
