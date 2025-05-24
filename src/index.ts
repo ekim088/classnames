@@ -6,12 +6,12 @@ export type ClassValue =
 	| boolean
 	| undefined
 	| null
+	| { toString?: () => string }
 	| ClassDictionary
 	| ClassValue[];
 
 /**
  * Parses a class value from a single mixed-type argument.
- *
  * @param {*} arg The argument to parse.
  * @returns {string} The value to append to the class attribute value.
  * @ignore
@@ -27,7 +27,10 @@ const parseClassFromArg = (arg: ClassValue): string => {
 		} else if (typeof arg === 'object') {
 			const objPrototype = Object.prototype;
 
-			if (objPrototype.toString !== arg.toString) {
+			if (
+				objPrototype.toString !== arg.toString &&
+				typeof arg.toString === 'function'
+			) {
 				classToAppend = arg.toString();
 			} else {
 				// using `for...in` over `Object.keys()` and string append over
@@ -36,7 +39,7 @@ const parseClassFromArg = (arg: ClassValue): string => {
 				for (const key in arg) {
 					if (
 						objPrototype.hasOwnProperty.call(arg, key) &&
-						arg[key]
+						arg[key as keyof typeof arg]
 					) {
 						classToAppend += (classToAppend ? ' ' : '') + key;
 					}
@@ -52,7 +55,6 @@ const parseClassFromArg = (arg: ClassValue): string => {
 
 /**
  * Reduces a list of arguments into a single class attribute value.
- *
  * @param {...*} classNameArgs A list of mixed-type arguments to reduce.
  * @returns {string} A class attribute value.
  */

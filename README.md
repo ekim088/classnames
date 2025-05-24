@@ -37,10 +37,10 @@ A less performant _dedupe_ version can also be imported from `@ekim088/classname
 ## Current Node.js Benchmark Results
 
 ```
-@ekim088/classnames x 6,769,999 ops/sec ±0.96% (93 runs sampled)
-classnames x 4,997,061 ops/sec ±0.88% (92 runs sampled)
-@ekim088/classnames/dedupe x 2,865,795 ops/sec ±1.29% (90 runs sampled)
-classnames/dedupe x 2,092,405 ops/sec ±1.50% (92 runs sampled)
+@ekim088/classnames x 7,684,296 ops/sec ±1.31% (89 runs sampled)
+classnames x 9,471,415 ops/sec ±1.22% (89 runs sampled)
+@ekim088/classnames/dedupe x 2,837,885 ops/sec ±1.59% (89 runs sampled)
+classnames/dedupe x 296,641 ops/sec ±1.25% (82 runs sampled)
 ```
 
 Benchmarks run in [Benchmark.js](https://benchmarkjs.com/).

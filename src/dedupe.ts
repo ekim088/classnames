@@ -3,7 +3,6 @@ import { ClassValue } from '.';
 /**
  * Reduces a list of arguments into a single class attribute value. Filters out
  * duplicate class names.
- *
  * @param {...*} classNameArgs A list of arguments to reduce.
  * @returns {string} A class attribute value without duplicates.
  * @ignore
@@ -20,7 +19,6 @@ export default function classNamesDedupe(
 
 	/**
 	 * Adds a class name to the list and updates its value in the dictionary.
-	 *
 	 * @param {string | number | boolean} className The name to update.
 	 * @param {*} value The truthy/falsey value of the class name.
 	 * @ignore
@@ -39,7 +37,6 @@ export default function classNamesDedupe(
 
 	/**
 	 * Parses and pushes an argument to the class list.
-	 *
 	 * @param {*} arg The argument to parse.
 	 * @ignore
 	 */
@@ -52,13 +49,16 @@ export default function classNamesDedupe(
 			} else if (typeof arg === 'object') {
 				const objPrototype = Object.prototype;
 
-				if (objPrototype.toString !== arg.toString) {
+				if (
+					objPrototype.toString !== arg.toString &&
+					typeof arg.toString === 'function'
+				) {
 					updateClassNames(arg.toString(), true);
 				} else {
 					// eslint-disable-next-line no-restricted-syntax
 					for (const key in arg) {
 						if (objPrototype.hasOwnProperty.call(arg, key)) {
-							updateClassNames(key, arg[key]);
+							updateClassNames(key, arg[key as keyof typeof arg]);
 						}
 					}
 				}

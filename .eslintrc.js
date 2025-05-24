@@ -27,22 +27,22 @@ module.exports = {
 		'import/no-extraneous-dependencies': [
 			'error',
 			{
-				devDependencies: ['**/*.{setup,spec,test}.*']
+				devDependencies: ['**/__tests__/*']
 			}
 		],
 		'import/no-unresolved': 'error',
 		'jest/consistent-test-it': ['error'],
-		'jest/lowercase-name': [
+		'jest/no-deprecated-functions': 'warn',
+		'jest/no-duplicate-hooks': 'error',
+		'jest/no-test-return-statement': 'error',
+		'jest/prefer-hooks-on-top': 'error',
+		'jest/prefer-lowercase-title': [
 			'error',
 			{
 				ignore: ['test'],
 				ignoreTopLevelDescribe: true
 			}
 		],
-		'jest/no-deprecated-functions': 'warn',
-		'jest/no-duplicate-hooks': 'error',
-		'jest/no-test-return-statement': 'error',
-		'jest/prefer-hooks-on-top': 'error',
 		'jest/require-top-level-describe': 'error',
 		'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
 		'no-use-before-define': 'off',
