@@ -33,14 +33,16 @@ classNames('foo', { bar: true }); // 'foo bar'
 ```
 
 A less performant _dedupe_ version can also be imported from `@ekim088/classnames/dedupe`.
+There is also a _cached_ variant that will cache derived class names by object reference from `@ekim088/classnames/cached`.
 
 ## Current Node.js Benchmark Results
 
 ```
-@ekim088/classnames x 7,684,296 ops/sec ±1.31% (89 runs sampled)
-classnames x 9,471,415 ops/sec ±1.22% (89 runs sampled)
-@ekim088/classnames/dedupe x 2,837,885 ops/sec ±1.59% (89 runs sampled)
-classnames/dedupe x 296,641 ops/sec ±1.25% (82 runs sampled)
+@ekim088/classnames x 3,525,180 ops/sec ±3.84% (80 runs sampled)
+classnames x 4,003,900 ops/sec ±4.69% (84 runs sampled)
+@ekim088/classnames/dedupe x 1,675,529 ops/sec ±3.81% (89 runs sampled)
+classnames/dedupe x 1,119,257 ops/sec ±6.08% (76 runs sampled)
+@ekim088/classnames/cached x 6,829,533 ops/sec ±5.09% (83 runs sampled)
 ```
 
 Benchmarks run in [Benchmark.js](https://benchmarkjs.com/).

@@ -24,8 +24,8 @@ export const runBaseSuite = (fxn: TestFunction, name = 'base tests'): void => {
 				})
 			).toBe('foo bar baz quux');
 			expect(
-				fxn(null, false, 'bar', undefined, 0, 1, { baz: null }, '')
-			).toBe('bar 1');
+				fxn(null, false, 'bar', undefined, 0, { baz: null }, '')
+			).toBe('bar');
 			expect(
 				fxn(
 					'foo',
@@ -97,6 +97,13 @@ export const runCustomBaseSuite = (
 					{ bar: true }
 				)
 			).toBe('foo toString bar');
+		});
+
+		it('should ignore number types', () => {
+			// object keys converted to strings
+			expect(fxn(0, 1, [2, 3], { 4: true, 5: true }, Infinity, NaN)).toBe(
+				'4 5'
+			);
 		});
 	});
 };

@@ -1,14 +1,4 @@
-export type ClassDictionary = Record<string, unknown>;
-
-export type ClassValue =
-	| string
-	| number
-	| boolean
-	| undefined
-	| null
-	| { toString?: () => string }
-	| ClassDictionary
-	| ClassValue[];
+const { hasOwnProperty, toString } = Object.prototype;
 
 /**
  * Parses a class value from a single mixed-type argument.
@@ -16,37 +6,32 @@ export type ClassValue =
  * @returns {string} The value to append to the class attribute value.
  * @ignore
  */
-const parseClassFromArg = (arg: ClassValue): string => {
+const parseClassFromArg = (arg: unknown): string => {
 	let classToAppend = '';
 
-	if (arg) {
-		if (Array.isArray(arg)) {
-			if (arg.length) {
-				classToAppend = classNames(...arg);
-			}
-		} else if (typeof arg === 'object') {
-			const objPrototype = Object.prototype;
+	if (!arg) {
+		return classToAppend;
+	}
 
-			if (
-				objPrototype.toString !== arg.toString &&
-				typeof arg.toString === 'function'
-			) {
-				classToAppend = arg.toString();
-			} else {
-				// using `for...in` over `Object.keys()` and string append over
-				// template literals for improved performance
-				// eslint-disable-next-line no-restricted-syntax
-				for (const key in arg) {
-					if (
-						objPrototype.hasOwnProperty.call(arg, key) &&
-						arg[key as keyof typeof arg]
-					) {
-						classToAppend += (classToAppend ? ' ' : '') + key;
-					}
-				}
+	if (typeof arg === 'string') {
+		return arg;
+	}
+
+	if (Array.isArray(arg)) {
+		return classNames.apply(null, arg);
+	}
+
+	if (typeof arg === 'object') {
+		if (toString !== arg.toString && typeof arg.toString === 'function') {
+			return arg.toString();
+		}
+
+		// using `for...in` over `Object.keys()` and string append over
+		// template literals for improved performance
+		for (const key in arg) {
+			if (hasOwnProperty.call(arg, key) && arg[key as keyof typeof arg]) {
+				classToAppend += (classToAppend ? ' ' : '') + key;
 			}
-		} else {
-			classToAppend += arg;
 		}
 	}
 
@@ -58,9 +43,17 @@ const parseClassFromArg = (arg: ClassValue): string => {
  * @param {...*} classNameArgs A list of mixed-type arguments to reduce.
  * @returns {string} A class attribute value.
  */
-export default function classNames(...classNameArgs: ClassValue[]): string {
-	return classNameArgs.reduce<string>((classAttr, arg) => {
-		const parsed = parseClassFromArg(arg);
-		return classAttr + (parsed ? (classAttr ? ' ' : '') + parsed : '');
-	}, '');
+export default function classNames(...classNameArgs: unknown[]): string;
+export default function classNames(): string {
+	let classAttr = '';
+
+	for (let i = 0; i < arguments.length; i++) {
+		const parsed = parseClassFromArg(arguments[i]);
+
+		if (parsed) {
+			classAttr = classAttr ? classAttr + ' ' + parsed : parsed;
+		}
+	}
+
+	return classAttr;
 }

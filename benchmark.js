@@ -5,9 +5,17 @@ const suite = new Benchmark.Suite();
 // import functions to test
 const classNames = require('./lib').default;
 const classNamesDedupe = require('./lib/dedupe').default;
+const classNamesCached = require('./lib/cached').default;
 const classNamesActual = require('classnames');
 const classNamesDedupeActual = require('classnames/dedupe');
-const testArgs = ['foo', { bar: true, duck: false }, 'baz', { quux: true }];
+const testArgs = [
+	'foo',
+	false,
+	{ bar: true, duck: false },
+	'baz',
+	{ quux: true },
+	['foo', false, { bar: true, duck: false }, 'baz', { quux: true }]
+];
 
 suite
 	// add tests
@@ -22,6 +30,9 @@ suite
 	})
 	.add('classnames/dedupe', function () {
 		classNamesDedupeActual(...testArgs);
+	})
+	.add('@ekim088/classnames/cached', function () {
+		classNamesCached(...testArgs);
 	})
 	// add listeners
 	.on('cycle', function (event) {
