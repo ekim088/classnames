@@ -1,4 +1,4 @@
-import { ClassValue } from '.';
+const { hasOwnProperty, toString } = Object.prototype;
 
 /**
  * Reduces a list of arguments into a single class attribute value. Filters out
@@ -7,9 +7,8 @@ import { ClassValue } from '.';
  * @returns {string} A class attribute value without duplicates.
  * @ignore
  */
-export default function classNamesDedupe(
-	...classNameArgs: ClassValue[]
-): string {
+export default function classNamesDedupe(...classNameArgs: unknown[]): string;
+export default function classNamesDedupe(): string {
 	// an array of classes that may end up in the final attribute value;
 	// maintains the names' order of first appearance in the argument list
 	const classList: string[] = [];
@@ -19,15 +18,13 @@ export default function classNamesDedupe(
 
 	/**
 	 * Adds a class name to the list and updates its value in the dictionary.
-	 * @param {string | number | boolean} className The name to update.
+	 * @param {string | boolean} className The name to update.
 	 * @param {*} value The truthy/falsey value of the class name.
 	 * @ignore
 	 */
-	const updateClassNames = (
-		className: string | number | true,
-		value: unknown
-	) => {
-		const keyStr = '' + className;
+	const updateClassNames = (className: string | true, value: unknown) => {
+		const keyStr =
+			typeof className === 'string' ? className : '' + className;
 		dictionary[keyStr] = value;
 
 		if (classList.indexOf(keyStr) === -1) {
@@ -40,45 +37,44 @@ export default function classNamesDedupe(
 	 * @param {*} arg The argument to parse.
 	 * @ignore
 	 */
-	const parseArg = (arg: ClassValue): void => {
-		if (arg) {
-			if (Array.isArray(arg)) {
-				if (arg.length) {
-					arg.forEach(parseArg);
-				}
-			} else if (typeof arg === 'object') {
-				const objPrototype = Object.prototype;
+	const parseArg = (arg: unknown): void => {
+		if (!arg) {
+			return;
+		}
 
-				if (
-					objPrototype.toString !== arg.toString &&
-					typeof arg.toString === 'function'
-				) {
-					updateClassNames(arg.toString(), true);
-				} else {
-					// eslint-disable-next-line no-restricted-syntax
-					for (const key in arg) {
-						if (objPrototype.hasOwnProperty.call(arg, key)) {
-							updateClassNames(key, arg[key as keyof typeof arg]);
-						}
+		if (typeof arg === 'string') {
+			updateClassNames(arg, true);
+		} else if (Array.isArray(arg)) {
+			arg.forEach(parseArg);
+		} else if (typeof arg === 'object') {
+			if (
+				toString !== arg.toString &&
+				typeof arg.toString === 'function'
+			) {
+				updateClassNames(arg.toString(), true);
+			} else {
+				for (const key in arg) {
+					if (hasOwnProperty.call(arg, key)) {
+						updateClassNames(key, arg[key as keyof typeof arg]);
 					}
 				}
-			} else {
-				updateClassNames(arg, true);
 			}
 		}
 	};
 
 	// parse each argument for truthy/falsey values to build the potential
 	// class list and dictionary
-	for (let i = 0; i < classNameArgs.length; i++) {
-		parseArg(classNameArgs[i]);
+	for (let i = 0; i < arguments.length; i++) {
+		parseArg(arguments[i]);
 	}
 
 	// reduce the class list to the attribute value using only truthy keys
 	// from the dictionary
-	return classList.reduce<string>(
-		(classAttr, name) =>
-			classAttr + (dictionary[name] ? (classAttr ? ' ' : '') + name : ''),
-		''
-	);
+	return classList.reduce<string>((classAttr, name) => {
+		if (dictionary[name]) {
+			return classAttr + (classAttr ? ' ' : '') + name;
+		}
+
+		return classAttr;
+	}, '');
 }

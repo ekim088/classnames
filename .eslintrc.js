@@ -44,8 +44,12 @@ module.exports = {
 			}
 		],
 		'jest/require-top-level-describe': 'error',
+		'jsdoc/require-jsdoc': 'off',
 		'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+		'no-restricted-syntax': ['error', 'LabeledStatement', 'WithStatement'],
 		'no-use-before-define': 'off',
+		'prefer-rest-params': 'off',
+		'prefer-spread': 'off',
 		'prefer-template': 'off'
 	},
 	settings: {
