@@ -6,7 +6,7 @@ const { hasOwnProperty, toString } = Object.prototype;
  * @returns {string} The value to append to the class attribute value.
  * @ignore
  */
-export const parseClassFromArg = (arg: unknown): string => {
+const parseClassFromArg = (arg: unknown): string => {
 	let classToAppend = '';
 
 	if (!arg) {
