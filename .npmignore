@@ -3,9 +3,12 @@
 .github
 .husky
 .prettierrc*
+.vscode
 *.code-workspace
 /*.config.js
 /benchmark*
 /coverage/
 /src/
 tsconfig*
+.pnp.*
+.yarn
