@@ -9,7 +9,7 @@ Actually just a replica of [classnames](https://www.npmjs.com/package/classnames
 Install via [npm](https://www.npmjs.com/package/@ekim088/classnames):
 
 ```
-npm i @ekim088/classnames --save
+yarn add @ekim088/classnames
 ```
 
 ## Usage
