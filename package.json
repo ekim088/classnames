@@ -1,7 +1,7 @@
 {
 	"name": "@ekim088/classnames",
 	"description": "Reduces mixed-type arguments into a single HTML class attribute.",
-	"version": "1.0.4",
+	"version": "2.0.0",
 	"author": "ekim088 <edward@cyberbird.co>",
 	"bugs": {
 		"url": "https://github.com/ekim088/classnames/issues"
@@ -60,7 +60,7 @@
 	"scripts": {
 		"benchmark": "npm run build && node ./benchmark",
 		"build": "rm -rf ./lib && tsc",
-		"changelog": "auto-changelog -p && git add CHANGELOG.md",
+		"changelog": "auto-changelog -p",
 		"lint": "eslint . --ext .js,.ts --fix",
 		"postinstall": "husky",
 		"prepack": "pinst --disable",
