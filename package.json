@@ -32,9 +32,21 @@
 		"typescript": "^5.8.3"
 	},
 	"exports": {
-		".": "./lib/index.js",
-		"./cached": "./lib/cached.js",
-		"./dedupe": "./lib/dedupe.js",
+		".": {
+			"types": "./lib/cjs/index.d.ts",
+			"import": "./lib/esm/index.js",
+			"require": "./lib/cjs/index.js"
+		},
+		"./cached": {
+			"types": "./lib/cjs/cached.d.ts",
+			"import": "./lib/esm/cached.js",
+			"require": "./lib/cjs/cached.js"
+		},
+		"./dedupe": {
+			"types": "./lib/cjs/dedupe.d.ts",
+			"import": "./lib/esm/dedupe.js",
+			"require": "./lib/cjs/dedupe.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"homepage": "https://github.com/ekim088/classnames#readme",
@@ -52,14 +64,17 @@
 			"yarn prettier --write"
 		]
 	},
-	"main": "./lib/index.js",
+	"main": "./lib/cjs/index.js",
+	"module": "./lib/esm/index.js",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/ekim088/classnames.git"
 	},
 	"scripts": {
 		"benchmark": "npm run build && node ./benchmark",
-		"build": "rm -rf ./lib && tsc",
+		"build": "node -e \"require('node:fs').rmSync('./lib', { recursive: true, force: true })\" && yarn build:cjs && yarn build:esm",
+		"build:cjs": "tsc -p tsconfig.cjs.json && node -e \"require('node:fs').writeFileSync('./lib/cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}')\"",
+		"build:esm": "tsc -p tsconfig.esm.json && node -e \"require('node:fs').writeFileSync('./lib/esm/package.json', '{\\\"type\\\":\\\"module\\\"}')\"",
 		"changelog": "auto-changelog -p",
 		"lint": "eslint . --ext .js,.ts --fix",
 		"postinstall": "husky",
@@ -70,7 +85,7 @@
 		"test:coverage": "jest --collectCoverage",
 		"test:pre-commit": "jest --findRelatedTests --passWithNoTests"
 	},
-	"types": "./lib/index.d.ts",
+	"types": "./lib/cjs/index.d.ts",
 	"volta": {
 		"node": "22.16.0",
 		"yarn": "4.9.1"

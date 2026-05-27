@@ -1,15 +1,6 @@
 {
+	"extends": "./tsconfig.base.json",
 	"compilerOptions": {
-		"declaration": true,
-		"lib": ["es2015", "dom"],
-		"module": "commonjs",
-		"outDir": "./lib",
-		"removeComments": true,
-		"sourceMap": true,
-		"strict": true,
-		"target": "es5",
-		"downlevelIteration": true
-	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules", "**/__tests__", "**/*.test.ts"]
+		"noEmit": true
+	}
 }
