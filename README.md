@@ -1,48 +1,56 @@
 # classnames
 
-Reduces mixed-type arguments into a single HTML class attribute.
+[![npm version](https://img.shields.io/npm/v/@ekim088/classnames)](https://www.npmjs.com/package/@ekim088/classnames)
+[![CI](https://github.com/ekim088/classnames/actions/workflows/ci.yml/badge.svg)](https://github.com/ekim088/classnames/actions/workflows/ci.yml)
 
-Actually just a replica of [classnames](https://www.npmjs.com/package/classnames) made for fun.
+Reduces mixed-type arguments into a single HTML class attribute. A replica of
+[classnames](https://www.npmjs.com/package/classnames) made for fun.
 
 ## Installation
 
-Install via [npm](https://www.npmjs.com/package/@ekim088/classnames):
+Install via npm:
 
+```sh
+npm install @ekim088/classnames
 ```
+
+or yarn:
+
+```sh
 yarn add @ekim088/classnames
 ```
 
-## Usage
+This package ships both ESM and CommonJS builds.
 
-Usage is similar to [classnames](https://www.npmjs.com/package/classnames), though only available as a module.
+## Usage
 
 ### `classNames(...args)`
 
-Reduces a list of arguments into a single class attribute value.
+Reduces a list of mixed-type arguments into a single class attribute value.
 
-**Returns**: `string` - A class attribute value.
-
-| Param   | Type   | Description                               |
-| ------- | ------ | ----------------------------------------- |
-| ...args | `...*` | A list of mixed-type arguments to reduce. |
-
-```
+```js
 import classNames from '@ekim088/classnames';
 
 classNames('foo', { bar: true }); // 'foo bar'
 ```
 
-A less performant _dedupe_ version can also be imported from `@ekim088/classnames/dedupe`.
-There is also a _cached_ variant that will cache derived class names by object reference from `@ekim088/classnames/cached`.
+Two variants are available as subpath imports:
 
-## Current Node.js Benchmark Results
+- `@ekim088/classnames/dedupe` - removes duplicate class names (less performant).
+- `@ekim088/classnames/cached` - caches derived class names by object reference.
+
+## Benchmarks
+
+Run with [Benchmark.js](https://benchmarkjs.com/):
 
 ```
-@ekim088/classnames x 3,525,180 ops/sec ±3.84% (80 runs sampled)
-classnames x 4,003,900 ops/sec ±4.69% (84 runs sampled)
-@ekim088/classnames/dedupe x 1,675,529 ops/sec ±3.81% (89 runs sampled)
-classnames/dedupe x 1,119,257 ops/sec ±6.08% (76 runs sampled)
-@ekim088/classnames/cached x 6,829,533 ops/sec ±5.09% (83 runs sampled)
+@ekim088/classnames        x 4,101,263 ops/sec ±2.61% (91 runs sampled)
+classnames                 x 4,234,935 ops/sec ±2.70% (88 runs sampled)
+@ekim088/classnames/dedupe x 1,490,623 ops/sec ±2.90% (79 runs sampled)
+classnames/dedupe          x 1,292,126 ops/sec ±3.80% (87 runs sampled)
+@ekim088/classnames/cached x 7,323,099 ops/sec ±1.35% (89 runs sampled)
 ```
 
-Benchmarks run in [Benchmark.js](https://benchmarkjs.com/).
+## License
+
+[MIT](./LICENSE)

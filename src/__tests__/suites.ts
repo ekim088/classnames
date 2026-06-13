@@ -6,8 +6,8 @@ type TestFunction = typeof classNames | typeof classNamesActual;
 
 /**
  * Executes all default tests for `className`.
- * @param {Function} fxn The function to test.
- * @param {string} [name] The name of the test block.
+ * @param fxn The function to test.
+ * @param [name] The name of the test block.
  */
 export const runBaseSuite = (fxn: TestFunction, name = 'base tests'): void => {
 	describe(`${name}`, () => {
@@ -62,8 +62,8 @@ export const runBaseSuite = (fxn: TestFunction, name = 'base tests'): void => {
 /**
  * Executes all default tests for `className` that are specific to the
  * `ekim088/classnames` package.
- * @param {Function} fxn The function to test.
- * @param {string} [name] The name of the test block.
+ * @param fxn The function to test.
+ * @param [name] The name of the test block.
  */
 export const runCustomBaseSuite = (
 	fxn: TestFunction,
@@ -110,8 +110,8 @@ export const runCustomBaseSuite = (
 
 /**
  * Executes all dedupe tests for `className`.
- * @param {Function} fxn The function to test.
- * @param {string} [name] The name of the test block.
+ * @param fxn The function to test.
+ * @param [name] The name of the test block.
  */
 export const runDedupeSuite = (
 	fxn: TestFunction,

@@ -3,8 +3,8 @@ const { hasOwnProperty, toString } = Object.prototype;
 /**
  * Reduces a list of arguments into a single class attribute value. Filters out
  * duplicate class names.
- * @param {...*} classNameArgs A list of arguments to reduce.
- * @returns {string} A class attribute value without duplicates.
+ * @param classNameArgs A list of arguments to reduce.
+ * @returns A class attribute value without duplicates.
  * @ignore
  */
 export default function classNamesDedupe(...classNameArgs: unknown[]): string;
@@ -13,28 +13,29 @@ export default function classNamesDedupe(): string {
 	// maintains the names' order of first appearance in the argument list
 	const classList: string[] = [];
 
-	// a map of class names and their latest truthy/falsey value
+	// a map of class names to their latest truthy/falsey value
 	const dictionary: Record<string, unknown> = {};
 
 	/**
 	 * Adds a class name to the list and updates its value in the dictionary.
-	 * @param {string | boolean} className The name to update.
-	 * @param {*} value The truthy/falsey value of the class name.
+	 * @param className The name to update.
+	 * @param value The truthy/falsey value of the class name.
 	 * @ignore
 	 */
 	const updateClassNames = (className: string | true, value: unknown) => {
 		const keyStr =
 			typeof className === 'string' ? className : '' + className;
-		dictionary[keyStr] = value;
 
-		if (classList.indexOf(keyStr) === -1) {
+		if (!hasOwnProperty.call(dictionary, keyStr)) {
 			classList.push(keyStr);
 		}
+
+		dictionary[keyStr] = value;
 	};
 
 	/**
 	 * Parses and pushes an argument to the class list.
-	 * @param {*} arg The argument to parse.
+	 * @param arg The argument to parse.
 	 * @ignore
 	 */
 	const parseArg = (arg: unknown): void => {
@@ -68,13 +69,17 @@ export default function classNamesDedupe(): string {
 		parseArg(arguments[i]);
 	}
 
-	// reduce the class list to the attribute value using only truthy keys
-	// from the dictionary
-	return classList.reduce<string>((classAttr, name) => {
-		if (dictionary[name]) {
-			return classAttr + (classAttr ? ' ' : '') + name;
-		}
+	// build the attribute value from the class names whose latest value is
+	// truthy, in their order of first appearance
+	let classAttr = '';
 
-		return classAttr;
-	}, '');
+	for (let i = 0; i < classList.length; i++) {
+		const name = classList[i];
+
+		if (dictionary[name]) {
+			classAttr += (classAttr ? ' ' : '') + name;
+		}
+	}
+
+	return classAttr;
 }
