@@ -3,9 +3,9 @@ const Benchmark = require('benchmark');
 const suite = new Benchmark.Suite();
 
 // import functions to test
-const classNames = require('./lib').default;
-const classNamesDedupe = require('./lib/dedupe').default;
-const classNamesCached = require('./lib/cached').default;
+const classNames = require('./lib/cjs').default;
+const classNamesDedupe = require('./lib/cjs/dedupe').default;
+const classNamesCached = require('./lib/cjs/cached').default;
 const classNamesActual = require('classnames');
 const classNamesDedupeActual = require('classnames/dedupe');
 const testArgs = [

@@ -6,8 +6,8 @@ const { hasOwnProperty, toString } = Object.prototype;
 
 /**
  * Parses a class value from a single mixed-type argument.
- * @param {*} arg The argument to parse.
- * @returns {string} The value to append to the class attribute value.
+ * @param arg The argument to parse.
+ * @returns The value to append to the class attribute value.
  * @ignore
  */
 const parseClassFromArg = (arg: unknown): string => {
@@ -59,8 +59,8 @@ const parseClassFromArg = (arg: unknown): string => {
 /**
  * Reduces a list of arguments into a single class attribute value. Classes
  * derived from objects will be cached by reference for improved performance.
- * @param {...*} classNameArgs A list of mixed-type arguments to reduce.
- * @returns {string} A class attribute value.
+ * @param classNameArgs A list of mixed-type arguments to reduce.
+ * @returns A class attribute value.
  */
 export default function classNames(...classNameArgs: unknown[]): string;
 export default function classNames(): string {
