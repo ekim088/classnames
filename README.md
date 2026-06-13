@@ -1,7 +1,7 @@
 # classnames
 
 [![npm version](https://img.shields.io/npm/v/@ekim088/classnames)](https://www.npmjs.com/package/@ekim088/classnames)
-[![CI](https://github.com/ekim088/classnames/actions/workflows/node.js.yml/badge.svg)](https://github.com/ekim088/classnames/actions/workflows/node.js.yml)
+[![CI](https://github.com/ekim088/classnames/actions/workflows/ci.yml/badge.svg)](https://github.com/ekim088/classnames/actions/workflows/ci.yml)
 
 Reduces mixed-type arguments into a single HTML class attribute. A replica of
 [classnames](https://www.npmjs.com/package/classnames) made for fun.
