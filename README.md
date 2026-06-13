@@ -40,11 +40,11 @@ Two variants are available as subpath imports:
 Run with [Benchmark.js](https://benchmarkjs.com/):
 
 ```
-@ekim088/classnames        x 3,525,180 ops/sec ±3.84% (80 runs sampled)
-classnames                 x 4,003,900 ops/sec ±4.69% (84 runs sampled)
-@ekim088/classnames/dedupe x 1,675,529 ops/sec ±3.81% (89 runs sampled)
-classnames/dedupe          x 1,119,257 ops/sec ±6.08% (76 runs sampled)
-@ekim088/classnames/cached x 6,829,533 ops/sec ±5.09% (83 runs sampled)
+@ekim088/classnames        x 4,101,263 ops/sec ±2.61% (91 runs sampled)
+classnames                 x 4,234,935 ops/sec ±2.70% (88 runs sampled)
+@ekim088/classnames/dedupe x 1,490,623 ops/sec ±2.90% (79 runs sampled)
+classnames/dedupe          x 1,292,126 ops/sec ±3.80% (87 runs sampled)
+@ekim088/classnames/cached x 7,323,099 ops/sec ±1.35% (89 runs sampled)
 ```
 
 ## License
