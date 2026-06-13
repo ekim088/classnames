@@ -46,6 +46,13 @@ All notable changes to this project will be documented in this file. Dates are d
 - test: generalizing unit tests [`6cb7c15`](https://github.com/ekim088/classnames/commit/6cb7c150625fd6792c5ee7e36360301834e72212)
 - perf: improving performance of className functions [`4e4a983`](https://github.com/ekim088/classnames/commit/4e4a9830c548027ec8aca3fadc248307289431bf)
 
+## [2.1.1](https://github.com/ekim088/classnames/compare/v2.1.0...v2.1.1) (2026-06-13)
+
+
+### Bug Fixes
+
+* improving dedupe speed ([#25](https://github.com/ekim088/classnames/issues/25)) ([7a880b0](https://github.com/ekim088/classnames/commit/7a880b01724afad933eb60728a3b671698d8cb28))
+
 ### [v1.0.0](https://github.com/ekim088/classnames/compare/v1.0.0-alpha.2...v1.0.0)
 
 > 20 March 2021
