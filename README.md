@@ -8,11 +8,15 @@ Reduces mixed-type arguments into a single HTML class attribute. A replica of
 
 ## Installation
 
-Install via npm or yarn:
+Install via npm:
 
 ```sh
 npm install @ekim088/classnames
-# or
+```
+
+or yarn:
+
+```sh
 yarn add @ekim088/classnames
 ```
 
