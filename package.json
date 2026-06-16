@@ -57,8 +57,8 @@
 	],
 	"license": "MIT",
 	"lint-staged": {
-		"!(*.(j|t)s)": "prettier --write --ignore-unknown",
-		"*.(j|t)s": [
+		"!(*.{js,ts,mjs,cjs})": "prettier --write --ignore-unknown",
+		"*.{js,ts,mjs,cjs}": [
 			"eslint --fix",
 			"prettier --write",
 			"yarn test:pre-commit"
